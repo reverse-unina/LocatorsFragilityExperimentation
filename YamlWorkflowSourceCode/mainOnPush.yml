@@ -1,0 +1,144 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Github Actions - mainOnPush
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: 
+      - '**'      # matches every branches
+
+
+ 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+    environment:
+      name: envForGithubActions
+    
+      
+   # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Step 1 - Checkout main branch from GitHub
+        uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Step 2 - Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+          
+      - name: Step 2.1
+        uses: actions/setup-node@v3
+        with:
+            node-version: 10.18.0        
+                        
+      - name: Step 3 - Installare Node versione 10 in Ubuntu
+        run: |
+          sudo apt update
+          sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+          sudo apt install nodejs
+          sudo npm cache clean -f 
+          sudo npm install -g n
+          sudo n stable
+          sudo n 10.18.0
+          echo "Versione di node: "
+          node -v
+          echo "Versione di npm: "
+          npm -v          
+          echo "Provo ad INSTALLARE bcrypt"
+          npm install bcrypt
+          npm fund
+          echo "vedi se ha fatto bene o no"
+          
+      - name: Step 4 - Unzip test-hooks ed installazione dentro test-guard di npm
+        run: | 
+          ls -a
+          unzip test-hooks.zip
+          cd test-hooks
+          ls -a
+          cd test-guard
+          ls -a
+          echo "Versione di node: "
+          node -v
+          echo "Versione di npm: "
+          npm -v
+          echo "Provo ad installare con npm install"
+          npm install
+          ls -a
+          npm audit fix
+          echo "Provo ad INSTALLARE bcrypt"
+          npm install bcrypt
+          npm fund
+          echo "vedi se ha fatto bene o no" 
+        
+      - name: Step 5 - Instrumenta l'applicazione iniettando gli Hooks
+        run: |
+            cd test-hooks
+            cd test-guard
+            ls -a
+            echo "Prima dell injection! "
+            echo "Visualizza versione di node"
+            node -v
+            echo "... Cancellazione e successivo aggiornamento di node_modules ..."
+            rm -rf node_modules/
+            echo "npm update"
+            npm update                  
+            echo "INJECTION adesso..."
+            echo "Visualizza versione di node"
+            node -v
+            echo "prima della mvn"
+            cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/Tesi-injector-plugin
+            mvn clean install
+            echo "dopo la mvn"
+            cd target
+            sudo bash -c 'java -jar Tesi-injector-plugin-1.0-SNAPSHOT.jar ${{ secrets.FE_EXTENSION_TYPE }} ${{ secrets.GRAMMAR_TYPE }} ${{ secrets.DIR_FILE_FE }} correct nomeTag'
+            echo "Dopo l'injection!!!"
+            git config --global user.email "${{ secrets.EMAIL_ACCOUNT_GITHUB }}"
+            git config --global user.name "${{ secrets.NOME_ACCOUNT_GITHUB }}"
+            git config --global user.password "${{ secrets.PASSWORD_ACCOUNT_GITHUB }}"
+            git status
+            echo "Andiamo ad effettuare il push dei file iniettati"
+            git add /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/insert-here-your-web-app/*
+            cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale
+            echo "`date +%Y-%m-%d_%H-%M-%S`" > timeCommit.txt
+            git add timeCommit.txt
+            echo "File aggiunti!"
+            git commit -m "Commit dal file yml dei file iniettati"
+            git branch -M ${GITHUB_REF#refs/heads/} 
+            git push -u origin ${GITHUB_REF#refs/heads/} --force
+            echo "Push effettuato"  
+            
+      - name: Step 6 - Esecuzione progetto correzioneFormatoTest
+        run: |
+          cd correzioneFormatoTest
+          mvn clean install
+          cd target
+          echo "Vediamo contenuto cartella target"
+          ls -a
+          java -jar correzioneFormatoTest-0.0.1-jarCorrezioneFormatoTest.jar /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/project-test-headless/src/test/java/com/example/TesiIntegrazioneProgettoEsterno /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/chromedriver_v94_linux64/chromedriver com.example.TesiIntegrazioneProgettoEsterno                   
+                
+      - name: Step 7 - Push dei file di test corretti
+        run: |
+          echo "Vediamo quali cartelle ci sono nella directory di partenza"
+          ls -a
+          git status
+          git config --global user.email "${{ secrets.EMAIL_ACCOUNT_GITHUB }}"
+          git config --global user.name "${{ secrets.NOME_ACCOUNT_GITHUB }}"
+          git config --global user.password "${{ secrets.PASSWORD_ACCOUNT_GITHUB }}"
+          echo "Andiamo ad aggiungere la cartella dei report"
+          git add /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/project-test-headless/src/test/java/com/example/TesiIntegrazioneProgettoEsterno
+          echo "Cartella aggiunta!"
+          cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale
+          echo "`date +%Y-%m-%d_%H-%M-%S`" > timeCommit.txt
+          git add timeCommit.txt
+          git commit -m "push automatico per la correzione del formato dei test"
+          git branch -M ${GITHUB_REF#refs/heads/}
+          git push -u origin ${GITHUB_REF#refs/heads/}

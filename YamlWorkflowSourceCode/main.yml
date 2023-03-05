@@ -1,0 +1,202 @@
+# This is a basic workflow to help you get started with Actions
+name: Github Actions - main (On Release)
+
+# Controls when the workflow will run
+on:
+  release:
+    types: [published]
+
+
+ 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment:
+      name: envForGithubActions
+    
+      
+   # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Step 1 - Checkout main branch from GitHub
+        uses: actions/checkout@v2
+          
+      - name: Step 2 - Visualizzare tag corrente
+        run: |
+          echo "Vediamo il tag corrente:"
+          echo "${GITHUB_REF#refs/tags/}"
+          echo "${GITHUB_REF#refs/heads/}"
+          echo "Vediamo se si potrebbe capire automaticamente che si usano gli hooks"
+          echo "Stampa a video degli utlimi 5 caratteri del tag della release corrente"
+          varTemp=$(echo "${GITHUB_REF#refs/tags/}" | tail -c 6)
+          echo "$varTemp"
+          echo "Vediamo qual è l'id dell'attuale commit"
+          echo "$GITHUB_SHA"
+                 
+      - name: Step 3 - Creazione directory Test Suite
+        run: |
+          ls -a
+          if [ ! -d "/home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/TestSuite" ]; then
+            echo "Vedi se sono dentro l'if numero 1"
+            sudo mkdir TestSuite
+          fi
+          echo "Vediamo se ha creato la cartella"
+          ls -a  
+          
+      - name: Step 3.1 - Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 12
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/insert-here-your-web-app/angular-spotify-main/angular-spotify-main/.npm
+          key : ${{ runner.os }}-npm-prova-${{ hashFiles('**/package-lock.json') }}
+      
+      - if: steps.cache-npm.outputs.cache-hit != 'true'
+        name: Liste node false
+        continue-on-error: true
+        run: echo "npm list"
+
+      - if: steps.cache-npm.outputs.cache-hit == 'true'
+        name: Liste node true
+        continue-on-error: true
+        run: echo "npm list -g"
+          
+      - name: Step 4 - SEZIONE BACK-END - Esegui Applicazione Spring Boot tramite jar
+        run:  |
+            cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale
+            bash startBackEnd.sh
+            
+      - name: Step 5 - SEZIONE FRONT-END - Esegui Applicazione FE tramite nmp
+        working-directory: /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/insert-here-your-web-app/angular-spotify-main/angular-spotify-main
+        run:  echo "ciao"
+      
+      - name: Step 5.1 - SEZIONE FRONT-END - Esegui Applicazione FE tramite nmp
+        run:  |
+            cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale
+            bash startFrontEnd.sh
+            
+      - name: Step 6 - Set up JDK 1.8 per progetti di utility
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+          
+                  
+      - name: Step 7 - Install Chrome Headless
+        run: |
+          
+          sudo apt-get install -y libappindicator1 fonts-liberation
+          sudo apt-get -y install dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-scalable
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get -f install
+          google-chrome-stable --headless --disable-gpu    
+          
+      - name: Step 8 - Install Chrome-Driver for test junit
+        run:  |
+            
+            echo "Step 8 cancellato"
+            
+          
+      - name: Step 9 - Eseguire test maven
+        run:  |
+            cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/project-test-headless
+            sudo bash -c 'mvn test site' || echo "Uno o più test sono falliti."
+                 
+      - name: Step 10 - Visualizzare report test
+        run: |
+            cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/project-test-headless/target/surefire-reports
+            ls -a 
+            echo "Visualizziamo adesso tutti i report txt ottenuti dalle nostre test suite"
+            cat *.txt
+            echo "Fine visualizzazione report!!!"                
+       
+      - name: Step 11 - Spostamento report in directory corretta
+        run: |  
+          cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/project-test-headless/target
+          echo "Visualizziamo se c'è la cartella surefire-reports"
+          ls -a 
+          echo "Rinominare la cartella surefire-reports in nome del tag della release creata"
+          sudo mv surefire-reports ${GITHUB_REF#refs/tags/}
+          echo "Vediamo se la ha rinominata:"
+          ls -a
+          sudo cp -r ${GITHUB_REF#refs/tags/} /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/TestSuite
+          
+      - name: Step 12 - Push dei report
+        run: |
+          echo "Vediamo quali cartelle ci sono nella directory di partenza"
+          ls -a
+          git config --global user.email "${{ secrets.EMAIL_ACCOUNT_GITHUB }}"
+          git config --global user.name "${{ secrets.NOME_ACCOUNT_GITHUB }}"
+          git config --global user.password "${{ secrets.PASSWORD_ACCOUNT_GITHUB }}"
+          git status
+          echo "Andiamo ad aggiungere la cartella dei report"
+          git add /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/TestSuite
+          echo "Cartella aggiunta!"
+          git commit -m "Eseguendo un primo commit dal file yml"
+          git tag --list
+          echo "Andiamo ad aggiungere, se non ci era già, il tag corrente"
+          git tag --force ${GITHUB_REF#refs/tags/}
+          echo "Vediamo la nuova lista di tag:"
+          git tag --list
+          git push -u origin ${GITHUB_REF#refs/tags/} --force
+          echo "Push effettuato"         
+          
+      - name: Step 13 - Unzip progetto "Miglioramento report test"
+        run: |
+          ls 
+          echo "Unzip del progetto"
+          unzip miglioramentoReportTest.zip
+          echo "Progetto zippato"
+          ls                    
+          
+      - name: Step 14 - Esecuzione progetto "Miglioramento report test"
+        run: |    
+          echo "Andiamo nella directory dove si trova il file jar eseguibile"
+          cd miglioramentoReportTest/target
+          ls -a
+          echo "Proviamo ad eseguire il file jar, passandogli come args[0] la directory dei report da analizzare e come args[1] il nome del report complessivo xls da generare"
+          java -jar miglioramentoReportTest-0.0.1-jarReportTest.jar /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/TestSuite/${GITHUB_REF#refs/tags/} tabellaReportTest
+          echo "File jar eseguito!!!"
+          echo "Vediamo il file xls di report unificato se c'è"
+          ls -a 
+          echo "Vediamo il contenuto del file xls di report unificato!!!"
+          sudo mv tabellaReportTest.xls ${GITHUB_REF#refs/tags/}.xls
+          
+      - name: Step 15 - Spostamento report xls in cartella dei report txt
+        run: | 
+          cd miglioramentoReportTest/target
+          sudo cp ${GITHUB_REF#refs/tags/}.xls /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/TestSuite/${GITHUB_REF#refs/tags/}
+          
+      - name: Step 16 - Commit del report xls
+        run: | 
+          echo "Vediamo quali cartelle ci sono nella directory di partenza"
+          ls -a          
+          git config --global user.email "${{ secrets.EMAIL_ACCOUNT_GITHUB }}"
+          git config --global user.name "${{ secrets.NOME_ACCOUNT_GITHUB }}"
+          git config --global user.password "${{ secrets.PASSWORD_ACCOUNT_GITHUB }}"
+          git status
+          echo "Andiamo ad aggiungere la cartella dei report"
+          git add /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale/TestSuite
+          echo "Cartella aggiunta!"
+          cd /home/runner/work/Tesi-StrumentoGenerale/Tesi-StrumentoGenerale
+          echo "`date +%Y-%m-%d_%H-%M-%S`" > timeCommit.txt
+          git add timeCommit.txt
+          git commit -m "Commit dal file main.yml"
+          git tag --list
+          echo "Andiamo ad aggiungere, se non ci era già, il tag corrente"
+          git tag --force ${GITHUB_REF#refs/tags/}
+          echo "Vediamo la nuova lista di tag:"
+          git tag --list
+          git push -u origin ${GITHUB_REF#refs/tags/} --force
+          echo "Push effettuato"
+        
+      

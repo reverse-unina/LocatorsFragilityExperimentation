@@ -1,0 +1,2 @@
+The javascript files containing the code for the individual locators were not generated with the intent of being tested on Katalon (they will not work) but with the only purpose of being able to make their implementation code more readable.
+if you want to test our locators with katalon you have to import inside it the file "My_Locators.js" which contains all 5 locators together

@@ -1,0 +1,36 @@
+<app-header [userCount]="userCount" (getUsersEvent)="getAllUsers()"  x934107962964-x-test-tpl-1></app-header>
+
+<div class="row" x934107962964-x-test-hook-3>
+		<div class="col-md-7 mrgnbtm" x934107962964-x-test-hook-4>
+			<h2 x934107962964-x-test-hook-5>Create User</h2>
+			<form [formGroup]="userForm" (ngSubmit)="onSubmit()" x934107962964-x-test-hook-6>
+				
+				<div class="row" x934107962964-x-test-hook-7>
+					<div class="form-group col-md-6" x934107962964-x-test-hook-8>
+						<label for="exampleInputEmail1" x934107962964-x-test-hook-9>First Name</label>
+						<input type="text" class="form-control" formControlName="firstName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First Name" x934107962964-x-test-hook-10>
+					</div>
+					<div class="form-group col-md-6" x934107962964-x-test-hook-11>
+						<label for="exampleInputPassword1" x934107962964-x-test-hook-12>Last Name</label>
+						<input type="text" class="form-control" formControlName="lastName" id="exampleInputPassword1" placeholder="Last Name" x934107962964-x-test-hook-13>
+					</div>
+				</div>
+				
+				<div class="row" x934107962964-x-test-hook-14>
+					<div class="form-group col-md-12" x934107962964-x-test-hook-15>
+						<label for="exampleInputEmail1" x934107962964-x-test-hook-16>Email</label>
+						<input type="text" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" x934107962964-x-test-hook-17>
+					</div>
+				</div>
+				<button type="submit"  class="btn btn-danger" x934107962964-x-test-hook-18>Create</button>
+			</form>
+		</div>
+		<div class="col-md-4 mrgnbtm" x934107962964-x-test-hook-19>
+			<app-display-board [userCount]="userCount" (getUsersEvent)="getAllUsers()" x934107962964-x-test-hook-20></app-display-board>
+		</div>
+		
+	</div>
+
+<div class="mrgnbtm" x934107962964-x-test-tpl-21>
+	<app-users *ngIf="users.length !== 0" [users]="users" x934107962964-x-test-hook-22></app-users>
+</div>

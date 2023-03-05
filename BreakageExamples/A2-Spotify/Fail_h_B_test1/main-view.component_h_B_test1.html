@@ -1,0 +1,17 @@
+<div class="sticky-top-scroll" x448624897747-x-test-tpl-1></div>
+<div class="main-view" x448624897747-x-test-tpl-2>
+<ul class="nav-bar-top" x448627084077-x-test-tpl-3>
+	<a> Spotify </a>
+	<li *ngFor="let item of navItems$ | async" class="px-2 nav-link-container" x448627084077-x-test-hook-4>
+		
+		<a [routerLink]="item.path"
+			routerLinkActive="active"      
+			[routerLinkActiveOptions]="{ exact: item.exact! }"
+			class="flex items-center px-4 nav-link link-subtle"
+			x448627084077-x-test-hook-5> 
+			{{ item.label }} 
+		</a>
+ 	</li>
+</ul>
+	<router-outlet x448624897747-x-test-hook-3></router-outlet>
+</div>

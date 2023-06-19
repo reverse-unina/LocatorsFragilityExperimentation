@@ -47,3 +47,6 @@ Some of Test Result A1
 Some of Test Result A1, but it's a summary containg all the test case for both application
 
 
+# Steps for the execution of Locators Fragility Experimentation
+See the releted [Wiki on the exectuon of the experimentation](https://github.com/reverse-unina/LocatorsFragilityExperimentation/wiki/Locators-Fragility-Experimentation-Steps).
+

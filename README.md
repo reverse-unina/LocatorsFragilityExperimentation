@@ -1,5 +1,5 @@
 # LocatorsFragilityExperimentation
-Experimental Material of a set of experiments aiming at assessing the fragility of test cases based on different types of locators with respect to different types of layout changes
+This repository contains the Experimental Material of a set of experiments aiming at assessing the fragility of test cases based on different types of locators with respect to different types of layout changes.
 
 # Overview
 This repository contains the following folders and subfolders:
@@ -19,7 +19,7 @@ This repository contains the following folders and subfolders:
 
 # Breakage Examples
 
-The BreakageExample folder contains two subdirectories representing the two tested applications, namely "Contact List" and "Spotify." The structure of the two subdirectories is similar and each folder contains a directory for each documented test case. The documentation of each test case consists of: 1) the HTML file subject to modification, 2) the HTML file after modification, 3) an image showing the differences between the HTML files before and after modification, and 4) an XLS file showing the error report for each test case.
+The BreakageExample folder contains two subdirectories representing the two tested applications, namely "Contact List" and "Spotify." The structure of the two subdirectories is similar and each folder contains a directory for each documented test case. The documentation of each test case consists of: 1) the HTML file subject to modification, 2) the HTML file after modification, 3) an image showing the differences between the HTML files before and after modification, and 4) an XLS file showing the failures report for each test case.
 
 # Locators Implementation
 

@@ -1,6 +1,9 @@
 # LocatorsFragilityExperimentation
 This repository contains the Experimental Material of a set of experiments aiming at assessing the fragility of test cases based on different types of locators with respect to different types of layout changes.
 
+# Steps for the execution of Locators Fragility Experimentation
+See also the related [Wiki on the execution of the experimentation](https://github.com/reverse-unina/LocatorsFragilityExperimentation/wiki/Locators-Fragility-Experimentation-Steps).
+
 # Overview
 This repository contains the following folders and subfolders:
 - **[BreakageExamples]**:
@@ -47,6 +50,5 @@ Some of Test Result A1
 Some of Test Result A1, but it's a summary containg all the test case for both application
 
 
-# Steps for the execution of Locators Fragility Experimentation
-See the releted [Wiki on the exectuon of the experimentation](https://github.com/reverse-unina/LocatorsFragilityExperimentation/wiki/Locators-Fragility-Experimentation-Steps).
+
 

@@ -1,0 +1,281 @@
+{
+  "id": "549245bd-45a4-48b4-895b-19655187597d",
+  "version": "2.0",
+  "name": "Test_Spotify",
+  "url": "http://localhost:4200",
+  "tests": [{
+    "id": "40534c05-04cd-4bdb-a672-e470fff920aa",
+    "name": "Test_Spotify",
+    "commands": [{
+      "id": "b2fef76b-ee23-49aa-b0e5-c58cafce9b79",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "43f15f2c-ef5d-4b01-8350-af7f744f4e54",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x832",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b7c5b54b-c6af-425e-b0d3-b51d68bba499",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(@href, '/browse')]",
+      "targets": [
+        ["linkText=Browse", "linkText"],
+        ["css=.px-2:nth-child(4) > .flex", "css:finder"],
+        ["xpath=//a[contains(text(),'Browse')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/browse')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Browse')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "49ed3600-dff3-413a-bbe7-4283d9bfd950",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//as-media-cover",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(1) > .category-cover-container > as-media-cover", "css:finder"],
+        ["xpath=//as-media-cover", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb4b4251-7130-47c9-8da6-3bdb95be4a31",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//as-media-cover",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(1) > .flex .mb-4", "css:finder"],
+        ["xpath=//as-media-cover", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff915ab6-a467-43e7-8145-ff4d2ab1dff2",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(@href, '/search')]",
+      "targets": [
+        ["linkText=Search", "linkText"],
+        ["css=.px-2:nth-child(3) > .flex", "css:finder"],
+        ["xpath=//a[contains(text(),'Search')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/search')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Search')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "81c3039f-6c49-4c3d-8126-d5a268be1f3c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input",
+      "targets": [
+        ["css=.input-container > .ng-untouched", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6383ed68-7026-4f4a-a2be-a11295817931",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input",
+      "targets": [
+        ["css=.ng-dirty", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "mengoni"
+    }, {
+      "id": "95ded0f8-b3ef-4bbd-8500-dd6e857d3e78",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "xpath=//input",
+      "targets": [
+        ["css=.ng-dirty", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "cc418e67-8a48-4756-9124-16392dd783d1",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//a[contains(@href, '/artist/3xGlLcG9CUrs5MvFkSLOS5')])[2]",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(2) > .album-tracks-grid > .ng-star-inserted:nth-child(2) .text-description", "css:finder"],
+        ["xpath=(//a[contains(text(),'Marco Mengoni')])[2]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/artist/3xGlLcG9CUrs5MvFkSLOS5')])[2]", "xpath:href"],
+        ["xpath=//as-album-track[2]/as-media-table-row/as-track-main-info/div[2]/div[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f187baff-cd6a-4f85-ad65-942fd8e2a722",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(@href, '/albums/4aNjXVkVKGFfr2HRkVM302')]",
+      "targets": [
+        ["linkText=MATERIA (TERRA)", "linkText"],
+        ["css=.ng-star-inserted:nth-child(4) > .artist-top-tracks-grid > .link-subtle", "css:finder"],
+        ["xpath=//a[contains(text(),'MATERIA (TERRA)')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/albums/4aNjXVkVKGFfr2HRkVM302')]", "xpath:href"],
+        ["xpath=//as-artist-top-track[3]/as-media-table-row/a", "xpath:position"],
+        ["xpath=//a[contains(.,'MATERIA (TERRA)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c9d5e9e-4e19-4262-a18e-afd19102c719",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//div[2]/div",
+      "targets": [
+        ["css=.flex > .font-bold", "css:finder"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "Marco Mengoni"
+    }]
+  }, {
+    "id": "2b0f81d5-0bbb-4e31-8cd5-b5d090a56cda",
+    "name": "Test_Spotify_css",
+    "commands": [{
+      "id": "ba24d975-f343-4a87-b12a-140b3f8bd99d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4bdc1f4a-e2ed-4fe6-bbdd-ee2f1c59b6ba",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x832",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5595dfab-a68b-4683-8fdc-2d5ca1b57fbd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.px-2:nth-child(4) > .flex",
+      "targets": [
+        ["linkText=Browse", "linkText"],
+        ["css=.px-2:nth-child(4) > .flex", "css:finder"],
+        ["xpath=//a[contains(text(),'Browse')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/browse')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Browse')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "18c56fa3-9cf8-49c8-9e89-c234f3df8dd4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ng-star-inserted:nth-child(1) > .category-cover-container > as-media-cover",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(1) > .category-cover-container > as-media-cover", "css:finder"],
+        ["xpath=//as-media-cover", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6af65cc4-62d5-4089-8339-fff1f6818395",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ng-star-inserted:nth-child(1) > .flex .mb-4",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(1) > .flex .mb-4", "css:finder"],
+        ["xpath=//as-media-cover", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1618e7b1-2644-414c-91f1-e0c7e2d80540",
+      "comment": "",
+      "command": "click",
+      "target": "css=.px-2:nth-child(3) > .flex",
+      "targets": [
+        ["linkText=Search", "linkText"],
+        ["css=.px-2:nth-child(3) > .flex", "css:finder"],
+        ["xpath=//a[contains(text(),'Search')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/search')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Search')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "427b81a7-1957-4552-ac94-208f5b93b4af",
+      "comment": "",
+      "command": "click",
+      "target": "css=.input-container > .ng-untouched",
+      "targets": [
+        ["css=.input-container > .ng-untouched", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b2e2cb46-99a6-4448-bce8-3865cdedab4d",
+      "comment": "",
+      "command": "type",
+      "target": "css=.ng-dirty",
+      "targets": [
+        ["css=.ng-dirty", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "mengoni"
+    }, {
+      "id": "a7b183bc-eb27-40ad-8ffe-9e22bf06487c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.ng-dirty",
+      "targets": [
+        ["css=.ng-dirty", "css:finder"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "be610887-0f41-4d8d-a6b3-fd9fbe2d40ec",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ng-star-inserted:nth-child(2) > .album-tracks-grid > .ng-star-inserted:nth-child(2) .text-description",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(2) > .album-tracks-grid > .ng-star-inserted:nth-child(2) .text-description", "css:finder"],
+        ["xpath=(//a[contains(text(),'Marco Mengoni')])[2]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/artist/3xGlLcG9CUrs5MvFkSLOS5')])[2]", "xpath:href"],
+        ["xpath=//as-album-track[2]/as-media-table-row/as-track-main-info/div[2]/div[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2dc44ee6-b096-46f4-a36a-cf3c4777d2e3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ng-star-inserted:nth-child(4) > .artist-top-tracks-grid > .link-subtle",
+      "targets": [
+        ["linkText=MATERIA (TERRA)", "linkText"],
+        ["css=.ng-star-inserted:nth-child(4) > .artist-top-tracks-grid > .link-subtle", "css:finder"],
+        ["xpath=//a[contains(text(),'MATERIA (TERRA)')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/albums/4aNjXVkVKGFfr2HRkVM302')]", "xpath:href"],
+        ["xpath=//as-artist-top-track[3]/as-media-table-row/a", "xpath:position"],
+        ["xpath=//a[contains(.,'MATERIA (TERRA)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "562465e3-386b-4b11-b494-5b0e77142983",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.flex > .font-bold",
+      "targets": [
+        ["css=.flex > .font-bold", "css:finder"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "Marco Mengoni"
+    }]
+  }],
+  "suites": [{
+    "id": "b7eece41-c5f9-4fbd-89e0-d63ad3ce2b8c",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:4200/"],
+  "plugins": []
+}

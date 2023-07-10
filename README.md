@@ -32,8 +32,12 @@ The directory named "Locators Implementation" contains a subdirectory for each t
 
 The BreakageExample folder contains two subdirectories representing the two tested applications, namely "Contact List" and "Spotify." Within each subfolder there are the Java files containing the test cases divided by locator type.
 
+# Layout Changes
 
-# YamlWorkflow Source Code
+The layout changes on the applications that are the two objects of our experimentation can be found by navigating the GitHub repositories of each of them. In these repositories a new release has been created for each layout change and you can find it by navigating between tags.
+For example, the tags of the A1 application can be found at: https://github.com/reverse-unina/A1-ContactList/tags while the ones of the A2 application can be found at : https://github.com/reverse-unina/A2-Spotify/tags
+
+# Yaml Workflow Source Code
 
 The Yaml Work flow Source Code folder contains two YAML files that represent the two workflows used in our experimentation through GitHub Actions. In particular, the "main.yml" file indicates the workflow that handles the execution of test cases on each new release. On the other hand, the "mainOnPush.yml" file represents the workflow responsible for the injection of the hook locators inside our application under test (AUT).
 
